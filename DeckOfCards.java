@@ -164,4 +164,33 @@ public class DeckOfCards
         }
         return hasFourOfAKind;
     }
+
+    private boolean isFlush()
+    {
+        boolean hasFlush = true;
+        for (int i = 1; i < hand.length; i++)
+        {
+            if (!hand[0].getSuit().equals(hand[i].getSuit()))
+            {
+                hasFlush = false;
+            }
+        }
+        return hasFlush;
+    }
+
+    private boolean isStright()
+    {
+        boolean hasStraight = true;
+        for (int i = 1; i < hand.length; i++)
+        {
+            if (hand[i-1].getFace() + 1 != (hand[i].getFace()))
+            {
+                if (hand[i-1].getFace() != 5 && hand[i].getFace() != 14)
+                {
+                    hasStraight = false;
+                }
+            }
+        }
+        return hasStraight;
+    }
 }
