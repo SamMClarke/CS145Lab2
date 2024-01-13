@@ -1,6 +1,4 @@
 import java.security.SecureRandom;
-import java.util.*;
-import java.lang.Integer;
 
 public class DeckOfCards
 {
@@ -38,7 +36,7 @@ public class DeckOfCards
         }
     }
 
-    public Card dealCard()
+    private Card dealCard()
     {
         if (currentCard < deck.length)
         {
@@ -59,11 +57,6 @@ public class DeckOfCards
         sortHand(hand);
     }
 
-    public Card[] getHand()
-    {
-        return this.hand;
-    }
-
     private void sortHand(Card[] handSorted)
     {
         Card temp = new Card(0, null, null);
@@ -81,4 +74,94 @@ public class DeckOfCards
         }
     }
 
+    public Card[] getHand()
+    {
+        return this.hand;
+    }
+
+    private boolean isPair()
+    {
+        boolean hasPair = false;
+        for (int i = 0; i < hand.length; i++)
+        {
+            for (int j = i + 1; j < hand.length; j++)
+            {
+                if(hand[i].getFace() == hand[j].getFace())
+                {
+                    hasPair = true;
+                }
+            }
+        }
+        return hasPair;
+    }
+
+    private boolean isTwoPair()
+    {
+        boolean hasTwoPair = false;
+        boolean hasOnePair = false;
+        int pairValue = 0;
+        for (int i = 0; i < hand.length; i++)
+        {
+            for (int j = i + 1; j < hand.length; j++)
+            {
+                if(hand[i].getFace() == hand[j].getFace())
+                {
+                    if(!hasOnePair)
+                    {
+                        hasOnePair = true;
+                        pairValue = hand[i].getFace();
+                    }
+                    else if (hand[i].getFace() != pairValue)
+                    {
+                        hasTwoPair = true;
+                    }
+                }
+            }
+        }
+        return hasTwoPair;
+    }
+
+    private boolean isThreeOfAKind()
+    {
+        boolean hasThreeOfAKind = false;
+        int kinds = 1;
+        for (int i = 0; i < hand.length; i++)
+        {
+            kinds = 0;
+            for (int j = i + 1; j < hand.length; j++)
+            {
+                if(hand[i].getFace() == hand[j].getFace())
+                {
+                    kinds++;
+                }
+            }
+            if (kinds == 3)
+            {
+                hasThreeOfAKind = true;
+            }
+        }
+        return hasThreeOfAKind;
+    }
+
+    private boolean isFourOfAKind()
+    {
+        boolean hasFourOfAKind = false;
+        int kinds = 1;
+        for (int i = 0; i < hand.length; i++)
+        {
+            kinds = 0;
+            for (int j = i + 1; j < hand.length; j++)
+            {
+                if(hand[i].getFace() == hand[j].getFace())
+                {
+                    kinds++;
+                }
+            }
+            if (kinds == 4)
+            {
+                hasFourOfAKind = true;
+            }
+        }
+        return hasFourOfAKind;
+    }
 }
