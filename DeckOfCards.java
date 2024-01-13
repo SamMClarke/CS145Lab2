@@ -193,4 +193,68 @@ public class DeckOfCards
         }
         return hasStraight;
     }
+
+    private int evalulateStrength()
+    {
+        int strength = 0;
+        if (isFlush() && isStright() && hand[0].getFace() == 10)
+        {
+            strength = 9;
+        }
+        else if (isFlush() && isStright())
+        {
+            strength = 8;
+        }
+        else if (isFourOfAKind())
+        {
+            strength = 7;
+        }
+        else if (isTwoPair() && isThreeOfAKind())
+        {
+            strength = 6;
+        }
+        else if (isFlush())
+        {
+            strength = 5;
+        }
+        else if (isStright())
+        {
+            strength = 4;
+        }
+        else if (isThreeOfAKind())
+        {
+            strength = 3;
+        }
+        else if (isTwoPair())
+        {
+            strength = 2;
+        }
+        else if (isPair())
+        {
+            strength = 1;
+        }
+        else 
+        {
+            strength = 0;
+        }
+        return strength;
+    }
+
+    public String compareHands(DeckOfCards other)
+    {
+        String message = ""; 
+        if (evalulateStrength() > other.evalulateStrength())
+        {
+            message = "Hand 1 is stronger than hand 2";
+        }
+        else if (evalulateStrength() < other.evalulateStrength())
+        {
+            message = "Hand 1 is weaker than hand 2";
+        }
+        else
+        {
+            message = "Hand 1 is equal in strength to hand 2";
+        }
+        return message;
+    }
 }
