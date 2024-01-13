@@ -1,16 +1,33 @@
 public class Card
 {
-    private final String face;
+    private final int face;
     private final String suit;
+    private final String faceAsString;
 
-    public Card(String cardFace, String cardSuit)
+    public Card(int cardFace, String cardSuit, String cardFaceAsString)
     {
         this.face = cardFace;
         this.suit = cardSuit;
+        this.faceAsString = cardFaceAsString;
+    }
+
+    public int getFace()
+    {
+        return this.face;
+    }
+
+    public String getSuit()
+    {
+        return this.suit;
+    }
+
+    public String getFaceAsString()
+    {
+        return this.faceAsString;
     }
 
     public String toString()
     {
-        return face + " of " + suit;
+        return faceAsString + " of " + suit;
     }
 }

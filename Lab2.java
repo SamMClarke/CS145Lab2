@@ -4,15 +4,11 @@ public class Lab2
     {
         DeckOfCards myDeckOfCards = new DeckOfCards();
         myDeckOfCards.shuffle();
-
-        for (int i = 1; i <= 52; i++)
+        myDeckOfCards.dealHand();
+        
+        for (int i = 0; i < 5; i++)
         {
-            System.out.printf("%-19s", myDeckOfCards.dealCard());
-
-            if (i % 4 == 0)
-            {
-                System.out.println();
-            }
+            System.out.printf("%-19s", (myDeckOfCards.getHand())[i]);
         }
     }
 }
