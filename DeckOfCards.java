@@ -2,6 +2,7 @@ import java.security.SecureRandom;
 
 public class DeckOfCards
 {
+    //Initialize variables
     private static final SecureRandom randomNumbers = new SecureRandom();
     private static final int NUMBER_OF_CARDS = 52;
     private static final int POKER_HAND_CARDS = 5;
@@ -10,7 +11,7 @@ public class DeckOfCards
     private Card[] hand = new Card[POKER_HAND_CARDS];
     private int currentCard = 0;
 
-    public DeckOfCards()
+    public DeckOfCards() //Fills deck array with cards. Each card has a face (as number), face (as string), and suit
     {
         int[] faces = {2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14};
         String[] facesAsString = {"Deuce", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King", "Ace"};
@@ -22,7 +23,7 @@ public class DeckOfCards
         }
     }
 
-    public void shuffle()
+    public void shuffle() //Shuffles the deck
     {
         currentCard = 0;
 
@@ -36,7 +37,7 @@ public class DeckOfCards
         }
     }
 
-    private Card dealCard()
+    private Card dealCard() //Deals one card to the hand
     {
         if (currentCard < deck.length)
         {
@@ -48,7 +49,7 @@ public class DeckOfCards
         }
     }
 
-    public void dealHand()
+    public void dealHand() //Deals five cards to the hand
     {
         for (int i = 0; i < POKER_HAND_CARDS; i++)
         {
@@ -57,7 +58,7 @@ public class DeckOfCards
         sortHand(hand);
     }
 
-    private void sortHand(Card[] handSorted)
+    private void sortHand(Card[] handSorted) //Sorts hand in ascending order
     {
         Card temp = new Card(0, null, null);
         for (int i = 0; i < handSorted.length; i++)
@@ -74,12 +75,12 @@ public class DeckOfCards
         }
     }
 
-    public Card[] getHand()
+    public Card[] getHand() //Returns the hand
     {
         return this.hand;
     }
 
-    private boolean isPair()
+    private boolean isPair() //Checks if deck contains a pair
     {
         boolean hasPair = false;
         for (int i = 0; i < hand.length; i++)
@@ -95,7 +96,7 @@ public class DeckOfCards
         return hasPair;
     }
 
-    private boolean isTwoPair()
+    private boolean isTwoPair() //Checks if the deck contains two pairs
     {
         boolean hasTwoPair = false;
         boolean hasOnePair = false;
@@ -121,7 +122,7 @@ public class DeckOfCards
         return hasTwoPair;
     }
 
-    private boolean isThreeOfAKind()
+    private boolean isThreeOfAKind() //Checks if the deck contains three of a kind
     {
         boolean hasThreeOfAKind = false;
         int kinds = 1;
@@ -143,7 +144,7 @@ public class DeckOfCards
         return hasThreeOfAKind;
     }
 
-    private boolean isFourOfAKind()
+    private boolean isFourOfAKind() //Checks if the deck contains for of a kind
     {
         boolean hasFourOfAKind = false;
         int kinds = 1;
@@ -165,7 +166,7 @@ public class DeckOfCards
         return hasFourOfAKind;
     }
 
-    private boolean isFlush()
+    private boolean isFlush() //Checks if the deck has all the same suit
     {
         boolean hasFlush = true;
         for (int i = 1; i < hand.length; i++)
@@ -178,14 +179,14 @@ public class DeckOfCards
         return hasFlush;
     }
 
-    private boolean isStright()
+    private boolean isStright() //Checks if the deck contains cards in order
     {
         boolean hasStraight = true;
         for (int i = 1; i < hand.length; i++)
         {
             if (hand[i-1].getFace() + 1 != (hand[i].getFace()))
             {
-                if (hand[i-1].getFace() != 5 && hand[i].getFace() != 14)
+                if (hand[i-1].getFace() != 5 && hand[i].getFace() != 14) //Ace can either be high or low
                 {
                     hasStraight = false;
                 }
@@ -194,7 +195,7 @@ public class DeckOfCards
         return hasStraight;
     }
 
-    private int evalulateStrength()
+    private int evalulateStrength() //Evaluates the strength of the hand
     {
         int strength = 0;
         if (isFlush() && isStright() && hand[0].getFace() == 10)
@@ -240,7 +241,7 @@ public class DeckOfCards
         return strength;
     }
 
-    public String compareHands(DeckOfCards other)
+    public String compareHands(DeckOfCards other) //Compares the strength of one hand to another
     {
         String message = ""; 
         if (evalulateStrength() > other.evalulateStrength())
