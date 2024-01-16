@@ -186,75 +186,94 @@ public class DeckOfCards
         {
             if (hand[i-1].getFace() + 1 != (hand[i].getFace()))
             {
-                if (hand[i-1].getFace() != 5 && hand[i].getFace() != 14) //Ace can either be high or low
-                {
-                    hasStraight = false;
-                }
+                hasStraight = false;
+                break;
             }
+        }
+        if (hand[0].getFace() == 2 && hand[1].getFace() == 3 && hand[2].getFace() == 4 && 
+        hand[3].getFace() == 5 && hand[4].getFace() == 14) //Ace can either be high or low
+        {
+            hasStraight = true;
         }
         return hasStraight;
     }
 
-    private int evalulateStrength() //Evaluates the strength of the hand
+    public int evalulateStrength() //Evaluates the strength of the hand
     {
         int strength = 0;
+
         if (isFlush() && isStright() && hand[0].getFace() == 10)
         {
             strength = 9;
+            System.out.println("This hand is a royal flush!");
         }
         else if (isFlush() && isStright())
         {
             strength = 8;
+            System.out.println("This hand is a straight flush!");
         }
         else if (isFourOfAKind())
         {
             strength = 7;
+            System.out.println("This hand is a four of a kind!");
         }
         else if (isTwoPair() && isThreeOfAKind())
         {
             strength = 6;
+            System.out.println("This hand is a full house!");
         }
         else if (isFlush())
         {
             strength = 5;
+            System.out.println("This hand is a flush!");
         }
         else if (isStright())
         {
             strength = 4;
+            System.out.println("This hand is a straight!");
         }
         else if (isThreeOfAKind())
         {
             strength = 3;
+            System.out.println("This hand is a three of a kind!");
         }
         else if (isTwoPair())
         {
             strength = 2;
+            System.out.println("This hand is a two pair!");
         }
         else if (isPair())
         {
             strength = 1;
+            System.out.println("This hand is a pair!");
         }
         else 
         {
             strength = 0;
+            System.out.println("This hand sucks!");
         }
         return strength;
     }
 
     public String compareHands(DeckOfCards other) //Compares the strength of one hand to another
     {
-        String message = ""; 
-        if (evalulateStrength() > other.evalulateStrength())
+        String message = "";
+        System.out.print("First hand: ");
+        int thisStrength = evalulateStrength();
+        System.out.print("\nSecond hand: ");
+        int otherStrength = other.evalulateStrength();
+
+        if (thisStrength > otherStrength)
         {
-            message = "Hand 1 is stronger than hand 2";
+            message = "\nHand 1 is stronger than hand 2";
         }
-        else if (evalulateStrength() < other.evalulateStrength())
+        else if (thisStrength < otherStrength)
         {
-            message = "Hand 1 is weaker than hand 2";
+            message = "\nHand 1 is weaker than hand 2";
         }
         else
         {
-            message = "Hand 1 is equal in strength to hand 2";
+            message = "\nHand 1 is equal in strength to hand 2";
         }
         return message;
     }
